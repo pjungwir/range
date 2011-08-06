@@ -1,0 +1,71 @@
+.\" manfile for range app
+.\" Copyright 2009 by Paul A. Jungwirth
+.TH range 1 "1 July 2009"
+
+.SH NAME
+range
+
+.SH OVERVIEW
+range [options] \fIstart\fR \fIend\fI
+
+.SH DESCRIPTION
+Takes a start and stop position, and prints all values from one to the other (inclusive).
+For example, given 3 and 6, range will print \fI3 4 5 6\fR.
+This can be useful for looping over numbered files in the shell.
+For instance, if you want to shrink the wedding photos from your rehearsal dinner, you could say:
+.PP
+.RS
+.nf
+for t in `range 342 419`; do
+  convert wedding-$t.jpg -resize 300x300 wedding-www-$t.jpg;
+done;
+.fi
+.RE
+.PP
+In shell code, this approach is more concise than controlling your loop with arithmetic.
+But if you have to iterate over huge ranges, it may not be as practical.
+.PP
+Range can count forward or backwards, over positive or negative numbers.
+By default it uses base 10 values, but you can use options to change inputs/outputs to
+binary (\fI-b\fR), octal (\fI-o\fR), or hexadecimal (\fI-x\fR or \fI-X\fR).
+.PP
+You can also use an alphabetic counting system (\fI-a\fR or \fI-A\fR), which works like this:
+.PP
+.RS
+.nf
+a b c ... x y z aa ab ac ... ax ay az ba bb ... zz aaa aab ...
+.fi
+.RE
+.PP
+This system still accepts negative values, but there is no "zero";
+it goes straight from \fI-a\fR to \fIa\fR.
+.PP
+In cases where range must print letters (hex and alphabetic output), you can get lowercase output
+by using the lowercase option (\fI-x\fR and \fI-a\fR)
+or uppercase output by using the uppercase option (\fI-X\fR and \fI-A\fR).
+.PP
+If either start or stop value begins with a zero, then range will pad all output values with enough zeroes
+to ensure that all values have the same number of digits as the longest input value.
+.PP
+There is also a forward option (\fI-f\fR). If you choose this option and your starting position is greater
+than your ending, then instead of counting backwards, range will print nothing. If you put this
+in a shell's for-loop, you'll get zero iterations. For instance, this will print nothing:
+.PP
+.RS
+.nf
+for t in `range -f 7 4`; do
+  echo $t;
+done;
+.fi
+.RE
+.PP
+By default, range separates each number with a space when printing to a terminal,
+otherwise with a newline. You can force spaces with the \fI-s\fR option or newlines with the \fI-S\fR option.
+.PP
+You can see a brief usage message by running range with the \fI-h\fR or \fI-?\fR options or with no arguments.
+
+.SH AUTHOR
+Paul A. Jungwirth
+
+.SH COPYRIGHT
+Copyright \(co 2009 Paul A. Jungwirth
