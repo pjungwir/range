@@ -70,6 +70,7 @@ void pad_with_zeros(char *str, int n) {
   buf[n] = '\0';
   memset(buf, '0', n);
   sprintf(str, "%.*s%s", n - strlen(tmp), buf, tmp);
+  free(tmp);
 }
 
 void help(int err) {
