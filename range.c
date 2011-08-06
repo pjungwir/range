@@ -64,6 +64,9 @@
 static char digits[17] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', '\0'};
 
 // Assumes str has enough space allocated to accomodate the extra length!:
+// sprintf("%05s") doesn't work on all operating systems, including ones
+// with GNU. (Only %05d is okay.)
+// So this function does the padding manually:
 void pad_with_zeros(char *str, int n) {
   char *tmp = strdup(str);
   char *buf = malloc(n+1);
