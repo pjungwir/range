@@ -13,5 +13,8 @@ experiment: experiment.o
 test: build
 	./test-range.pl
 
+readme:
+	markdown README.md > README.html
+
 clean:
 	rm -f *.o range experiment
